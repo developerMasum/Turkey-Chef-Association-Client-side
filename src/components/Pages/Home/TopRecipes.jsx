@@ -4,7 +4,7 @@ import "../../../assets/pasa.css";
 
 const TopRecipes = () => {
     return (
-        <div className='container  '>
+        <div className='  '>
         <h5 className="text-center mt-5 mb-5 "> Top Recipes All over the World </h5>
         <div>
           <Container>

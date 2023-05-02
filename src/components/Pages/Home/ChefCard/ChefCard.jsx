@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
-import "../../../assets/pasa.css";
+
 
 const ChefCard = ({singleChef}) => {
     const {likes,chefName,chefPicture,numRecipes,yearsOfExperience,} = singleChef;
