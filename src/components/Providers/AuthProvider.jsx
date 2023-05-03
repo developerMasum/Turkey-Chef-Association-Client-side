@@ -27,6 +27,10 @@ const signIn = (email,password)=>{
   const googlePopUp =(provider)=>{
     return signInWithPopup (auth,provider)
 
+  };
+
+  const gitPopUp =(provider)=>{
+    return signInWithPopup (auth,provider)
   }
   useEffect(()=>{
     const unsubscribe = onAuthStateChanged(auth,loggedUSer =>{
@@ -48,7 +52,8 @@ const signIn = (email,password)=>{
     user,
     signIn,
     createUser,
-    googlePopUp
+    googlePopUp,
+    gitPopUp
    } 
     return (
         <AuthContext.Provider value={AuthInfo}>

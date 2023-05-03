@@ -4,15 +4,18 @@ import {
   Container,
   Image,
   Nav,
-  NavDropdown,
+  
   Navbar,
+  OverlayTrigger,
+  Tooltip,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
-import { FaUserCircle } from 'react-icons/fa';
+
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  // console.log(user.photoURL);
   return (
     <div className="container">
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -28,24 +31,49 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#features">Home</Nav.Link>
-              <Nav.Link href="#pricing">Blogs</Nav.Link>
+              <Nav.Link>
+                {" "}
+                <Link className="text-decoration-none text-black" to={"/"}> Home</Link>
+              </Nav.Link>
+              <Nav.Link > <Link className="text-decoration-none text-black" to={"/blogs"}> Blogs</Link></Nav.Link>
               <Nav.Link href="#pricing">Chiefs</Nav.Link>
               <Nav.Link href="#pricing">About Us</Nav.Link>
             </Nav>
             <Nav className="">
-              {
-                user ? <> <FaUserCircle /> </> 
-                :
-                <> 
-                  <Link to={"/login"}>
-                {" "}
-                <Button variant="warning">Log in</Button>
-              </Link> </>
-               
+              {user ? (
+                <>
+                  {" "}
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        {user?.displayName}
+                      </Tooltip>
+                    }
+                  >
+                    {({ ref, ...triggerHandler }) => (
+                     
+                        <Image
+                         {...triggerHandler}
+                          style={{ height: "40px" }}
+                          src={user?.photoURL}
+                          roundedCircle
+                          ref = {ref}
+                        />
 
-            
-              }
+                       
+                      
+                    )}
+                  </OverlayTrigger>{" "}
+                </>
+              ) : (
+                <>
+                  <Link to={"/login"}>
+                    {" "}
+                    <Button variant="warning">Log in</Button>
+                  </Link>{" "}
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
