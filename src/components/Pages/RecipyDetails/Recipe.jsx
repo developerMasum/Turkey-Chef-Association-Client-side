@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRef } from "react";
 import { Card } from "react-bootstrap";
 import { FaRegStar, FaStar } from "react-icons/fa";
-import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+
 import Rating from "react-rating";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

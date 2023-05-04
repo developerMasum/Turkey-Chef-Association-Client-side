@@ -4,7 +4,6 @@ import {
   Container,
   Image,
   Nav,
-  NavLink,
   Navbar,
   OverlayTrigger,
   Tooltip,
@@ -33,7 +32,7 @@ const Header = () => {
         console.log(error.message);
       });
   };
-  // console.log(user.photoURL);
+
   return (
     <div className="container">
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">

@@ -31,7 +31,7 @@ const Register = () => {
         console.log(loggedUser);
         setSuccess("successfully logged in");
         alert("account created successfully, go to login page and enjoy  ");
-        updateUrl();
+        updateUrl(); 
         logOut();
 
         form.reset();
