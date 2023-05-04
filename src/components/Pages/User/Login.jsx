@@ -6,7 +6,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 
 const Login = () => {
-  const { signIn, googlePopUp, gitPopUp } = useContext(AuthContext);
+  const { signIn, googlePopUp, gitPopUp,updateUrl } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -22,6 +22,7 @@ const Login = () => {
         const loggedUser = result.user;
         setSuccess('Welcome,successfully logged in');
         console.log(loggedUser);
+     
         navigate(from,{replace:true})
 
       })
@@ -37,6 +38,7 @@ const Login = () => {
         const loggedUser = result.user;
         console.log(loggedUser);
         setSuccess('Welcome,successfully logged in');
+    
         navigate(from,{replace:true})
        
       })
@@ -64,6 +66,7 @@ const Login = () => {
       console.log(loggedUser);
        setSuccess('Welcome,successfully logged in');
         navigate(from,{replace:true})
+        updateUrl();
         form.reset()
         error('')
       })

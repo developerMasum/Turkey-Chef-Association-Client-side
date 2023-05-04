@@ -10,19 +10,18 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import login from '../../assets/login.png'
+import login from "../../assets/login.png";
 
 import { AuthContext } from "../Providers/AuthProvider";
 import { FaBeer, FaUserAlt, FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
-  const { user, logOut,updateUrl } = useContext(AuthContext);
+  const { user, logOut, updateUrl } = useContext(AuthContext);
   const [isActive, setIsActive] = useState(false);
 
-
- const handleClick=() =>{
+  const handleClick = () => {
     setIsActive(true);
-  }
+  };
 
   const handleLogout = () => {
     logOut()
@@ -49,29 +48,33 @@ const Header = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link>
+            <Nav variant="pills" defaultActiveKey="/" className="me-auto">
+              <Nav.Link href="/" className="activeNav navLink"> 
                 {" "}
-                <Link onClick={handleClick} className="text-decoration-none text-black   isActive ? 'active' : ''" to={"/"}>
+                <Link
+                  onClick={handleClick}
+                  className="text-decoration-none text-black "
+                  to={"/"}
+                  
+                >
                   {" "}
                   Home
                 </Link>
               </Nav.Link>
 
-              
-
-             
-
-              <Nav.Link>
+              <Nav.Link eventKey="link-1">
                 {" "}
                 <Link className="text-decoration-none text-black" to={"/blogs"}>
                   {" "}
                   Blogs
                 </Link>
               </Nav.Link>
-              <Nav.Link href="#pricing">Chiefs</Nav.Link>
-              <Nav.Link href="#pricing">About Us</Nav.Link>
+              <Nav.Link >Chiefs</Nav.Link>
+              <Nav.Link>About Us</Nav.Link>
             </Nav>
+
+
+
             <Nav className="">
               {user ? (
                 <>
@@ -80,7 +83,9 @@ const Header = () => {
                     placement="bottom"
                     overlay={
                       <Tooltip id="button-tooltip-2">
-                        {user?.displayName ? user?.displayName: 'User name Not available' }
+                        {user?.displayName
+                          ? user?.displayName
+                          : "User name Not available"}
                       </Tooltip>
                     }
                   >
@@ -88,7 +93,9 @@ const Header = () => {
                       <Image
                         {...triggerHandler}
                         style={{ height: "40px" }}
-                        src={user?.photoURL ?  user?.photoURL  : updateUrl.photoURL  }
+                        src={
+                          user?.photoURL ? user?.photoURL : updateUrl.photoURL
+                        }
                         roundedCircle
                         ref={ref}
                       />

@@ -7,6 +7,7 @@ import "../../../assets/pasa.css";
 import TopRecipes from "./TopRecipes";
 import QuesSection from "../QuesSection/QuesSection";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -19,7 +20,15 @@ const Home = () => {
   return (
     <div className="Container">
       <Card className="bg-dark Container  text-white">
-        <Card.Img src={bgimg} alt="Card image" />
+        {/* <Card.Img src={bgimg} alt="Card image" /> */}
+        <div>
+      <LazyLoadImage src={bgimg}
+        width={1350} height={600}
+        threshold={0.98}
+        
+      />
+     </div>
+
         <Card.ImgOverlay className="d-flex justify-content-center align-items-center flex-column">
           <Card.Title className="fs-1 fw-bold  align-middle ">
             Get the best Turkey Chef's <br />{" "}
@@ -36,7 +45,10 @@ const Home = () => {
           </Card.Text>
           <Card.Text>
             <Button variant="warning" size="lg">
-            <Link className="text-decoration-none text-white" to={'/blogs'}> visit Blogs <FaArrowRight /> </Link>
+              <Link className="text-decoration-none text-white" to={"/blogs"}>
+                {" "}
+                visit Blogs <FaArrowRight />{" "}
+              </Link>
             </Button>
           </Card.Text>
         </Card.ImgOverlay>
@@ -58,9 +70,6 @@ const Home = () => {
       {/* lottie */}
       <h5 className="mt-5 mb-5 text-center"> Most Trending Questions:</h5>
       <QuesSection />
-
-
-
     </div>
   );
 };

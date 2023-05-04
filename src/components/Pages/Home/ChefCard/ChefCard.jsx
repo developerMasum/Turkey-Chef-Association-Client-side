@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+
 // import LazyLoad from "react-lazy-load";
 import { Link } from "react-router-dom";
 
@@ -10,6 +11,8 @@ const ChefCard = ({ singleChef }) => {
     <div className="text-center mx-auto">
       <Card className="width">
         <Card.Img variant="top" src={chefPicture} />
+        {/* <img  src={chefPicture} alt="" /> */}
+       
         <Card.Body>
           <Card.Title>{chefName}</Card.Title>
           <Card.Text>
