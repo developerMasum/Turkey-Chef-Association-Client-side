@@ -1,23 +1,32 @@
 import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 
 const Login = () => {
   const { signIn, googlePopUp, gitPopUp } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const location = useLocation()
+  const navigate = useNavigate()
+  const from = location.state?.from?.pathname || '/'
+
 
   //  pop up
   const handlePopUp = () => {
     googlePopUp(provider)
       .then((result) => {
         const loggedUser = result.user;
+        setSuccess('Welcome,successfully logged in');
         console.log(loggedUser);
+        navigate(from,{replace:true})
+
       })
       .catch((error) => {
-        console.log(error.message);
+       setError(error.message);
       });
   };
 
@@ -27,9 +36,12 @@ const Login = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        setSuccess('Welcome,successfully logged in');
+        navigate(from,{replace:true})
+       
       })
       .catch((error) => {
-        console.log(error.message);
+       setError(error.message);
       });
   };
 
@@ -41,13 +53,22 @@ const Login = () => {
     const password = form.password.value;
     console.log(email, password);
 
+    if (!password || password.length < 6 || !email) {
+      setError("please enter valid email and password");
+      return;
+    }
+
     signIn(email, password)
       .then((result) => {
         const loggedUser = result.user;
-        console.log(loggedUser);
+      console.log(loggedUser);
+       setSuccess('Welcome,successfully logged in');
+        navigate(from,{replace:true})
+        form.reset()
+        error('')
       })
       .catch((error) => {
-        console.log(error.message);
+        setError(error.message);
       });
 
     // popup
@@ -55,7 +76,6 @@ const Login = () => {
 
   return (
     <div className="container">
-     
       <div className="container mt-5">
         <div className="row justify-content-center">
           <div className="col-md-6">
@@ -90,6 +110,14 @@ const Login = () => {
                   >
                     Login
                   </Button>
+
+                  <p className="text-success">
+                    <small>{success}</small>
+                  </p>
+                  <p className="text-danger">
+                    <small>{error}</small>
+                  </p>
+
                   <p>
                     <small>
                       New here? Click here{" "}
@@ -97,13 +125,9 @@ const Login = () => {
                     </small>
                   </p>
                   <hr />
-
-                 
-
-                 
                 </form>
                 <div>
-                <Button
+                  <Button
                     onClick={handlePopUp}
                     className="mb-2"
                     variant="outline-danger"
@@ -111,9 +135,13 @@ const Login = () => {
                   >
                     {" "}
                     <FaGoogle /> Login with Google
-                  </Button> <br />
-
-                  <Button  onClick={handleGitPopUp} size="sm" variant="outline-warning">
+                  </Button>{" "}
+                  <br />
+                  <Button
+                    onClick={handleGitPopUp}
+                    size="sm"
+                    variant="outline-warning"
+                  >
                     {" "}
                     <FaGithub /> Login with Github
                   </Button>

@@ -11,10 +11,13 @@ import AuthProvider from "./components/Providers/AuthProvider";
 import RecepyDetailsLayout from "./components/Layout/RecepyDetailsLayout";
 import RecipyDetails from "./components/Pages/RecipyDetails/RecipyDetails";
 import Blogs from "./components/Pages/Blogs/Blogs";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import ErrorPage from "./components/Pages/ErrorPage/ErrorPage";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: "/",
@@ -35,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/chefData/:id' ,
-        element: <RecipyDetails />,
+        element: <PrivateRoute> <RecipyDetails /> </PrivateRoute>,
         
 
       }

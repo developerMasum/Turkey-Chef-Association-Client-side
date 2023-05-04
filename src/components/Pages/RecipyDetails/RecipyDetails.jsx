@@ -20,7 +20,7 @@ const RecipyDetails = () => {
     <div className="container mt-5">
       <div className="d-flex text-bg-secondary">
         <div className="mb-0">
-          <Card>
+          <Card >
             <Card.Img
               style={{ height: "400px", width: "350px" }}
               variant="top"

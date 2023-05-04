@@ -1,66 +1,69 @@
-import React, { createContext, useEffect, useState } from 'react';
-import app from '../FireBase/firebase.config';
-import {  GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-
-
+import React, { createContext, useEffect, useState } from "react";
+import app from "../FireBase/firebase.config";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const[loading,setLoading] = useState(true);
 
-
-
-const AuthProvider = ({children}) => {
-    const [user,setUser] = useState(null);
-
-
-
-const signIn = (email,password)=>{
-    
-    return signInWithEmailAndPassword(auth,email,password)
-
+  const signIn = (email, password) => {
+    setLoading(true)
+    return signInWithEmailAndPassword(auth, email, password);
   };
-  const createUser = (email,password)=>{
-    return createUserWithEmailAndPassword(auth,email,password)
+  const createUser = (email, password) => {
+    setLoading(true)
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const googlePopUp =(provider)=>{
-    return signInWithPopup (auth,provider)
-
+  const googlePopUp = (provider) => {
+    setLoading(true)
+    return signInWithPopup(auth, provider);
   };
 
-  const gitPopUp =(provider)=>{
-    return signInWithPopup (auth,provider)
-  }
-  useEffect(()=>{
-    const unsubscribe = onAuthStateChanged(auth,loggedUSer =>{
+  const gitPopUp = (provider) => {
+    setLoading(true)
+    return signInWithPopup(auth, provider);
+  };
+  const logOut = () => {
+    setLoading(true)
+    return signOut(auth);
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (loggedUSer) => {
       console.log(loggedUSer);
       setUser(loggedUSer);
-    //   setLoading(false)
-    })
-    return ()=>{
-      unsubscribe()
-    }
-  },[])
+      setLoading(false)
+      //   setLoading(false)
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
-  
-    
-
-
-
-   const AuthInfo = {
+  const AuthInfo = {
     user,
     signIn,
     createUser,
     googlePopUp,
-    gitPopUp
-   } 
-    return (
-        <AuthContext.Provider value={AuthInfo}>
-            {children}
-            
-        </AuthContext.Provider>
-    );
+    gitPopUp,
+    logOut,
+    loading
+  };
+  return (
+    <AuthContext.Provider value={AuthInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

@@ -4,17 +4,30 @@ import {
   Container,
   Image,
   Nav,
-  
+  NavLink,
   Navbar,
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../Providers/AuthProvider";
+import login from '../../assets/login.png'
 
+import { AuthContext } from "../Providers/AuthProvider";
+import { FaBeer, FaUserAlt, FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOut()
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   // console.log(user.photoURL);
   return (
     <div className="container">
@@ -33,9 +46,23 @@ const Header = () => {
             <Nav className="me-auto">
               <Nav.Link>
                 {" "}
-                <Link className="text-decoration-none text-black" to={"/"}> Home</Link>
+                <Link className="text-decoration-none text-black" to={"/"}>
+                  {" "}
+                  Home
+                </Link>
               </Nav.Link>
-              <Nav.Link > <Link className="text-decoration-none text-black" to={"/blogs"}> Blogs</Link></Nav.Link>
+
+              
+
+             
+
+              <Nav.Link>
+                {" "}
+                <Link className="text-decoration-none text-black" to={"/blogs"}>
+                  {" "}
+                  Blogs
+                </Link>
+              </Nav.Link>
               <Nav.Link href="#pricing">Chiefs</Nav.Link>
               <Nav.Link href="#pricing">About Us</Nav.Link>
             </Nav>
@@ -47,30 +74,31 @@ const Header = () => {
                     placement="bottom"
                     overlay={
                       <Tooltip id="button-tooltip-2">
-                        {user?.displayName}
+                        {user?.displayName ? user?.displayName: 'User name Not available' }
                       </Tooltip>
                     }
                   >
                     {({ ref, ...triggerHandler }) => (
-                     
-                        <Image
-                         {...triggerHandler}
-                          style={{ height: "40px" }}
-                          src={user?.photoURL}
-                          roundedCircle
-                          ref = {ref}
-                        />
-
-                       
-                      
+                      <Image
+                        {...triggerHandler}
+                        style={{ height: "40px" }}
+                        src={user?.photoURL ?  user?.photoURL  : {login}  }
+                        roundedCircle
+                        ref={ref}
+                      />
                     )}
                   </OverlayTrigger>{" "}
+                  <Button onClick={handleLogout} size="sm" variant="warning">
+                    Log out
+                  </Button>
                 </>
               ) : (
                 <>
                   <Link to={"/login"}>
                     {" "}
-                    <Button variant="warning">Log in</Button>
+                    <Button size="sm" variant="warning">
+                      Log in
+                    </Button>
                   </Link>{" "}
                 </>
               )}
