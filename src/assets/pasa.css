@@ -2,8 +2,13 @@
     display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 5px;
+  @media (max-width: 768px) {
+    display: grid;
+  grid-template-columns: repeat(1, 1fr);
+    }
+  }
 
-}
+
 .width{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
   width: 250px;
@@ -29,4 +34,19 @@
 
 .bgcolor{
   background-color: rgba(222, 181, 32, 0.16);
+ 
 }
+
+.directors{
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+
+
+
+  }
+}
+/* .active{
+  color: red;
+  background-color: yellow;
+} */

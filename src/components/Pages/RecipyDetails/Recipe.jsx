@@ -1,32 +1,42 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { Card } from "react-bootstrap";
-import {FaRegStar, FaStar } from "react-icons/fa";
-import {MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import { FaRegStar, FaStar } from "react-icons/fa";
+import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
 import Rating from "react-rating";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Recipe = ({ singleRecipe }) => {
- 
-  let btnRef = useRef();
+  const [arr, setArr] = useState(false);
 
-
-  const handleLike=()=>{
+  const handleLike = () => {
+    setArr(true);
 
     toast("added to favorite!");
-    
-
-  }
-  const { recipeName, ingredients, cookingMethod, rating,recipeImg } = singleRecipe;
+  };
+  const { recipeName, ingredients, cookingMethod, rating, recipeImg } =
+    singleRecipe;
   return (
     <div>
       <div className="mt-3">
         <div className=" mx-auto">
-          <Card style={{height:'550px'}} className="relative">
+          <Card style={{ height: "550px" }} className="relative">
             <Card.Body>
-              <Card.Title className="d-flex"> <p>{recipeName}</p> <MdOutlineFavoriteBorder  id="fvt" className="flex-grow-1"  ref={btnRef} onClick={handleLike} style={{cursor:'pointer'}} /> </Card.Title>
-            
+              <Card.Title className="d-flex justify-content-between">
+                {" "}
+                <p>{recipeName}</p>{" "}
+                <p>
+                  <button
+                    disabled={arr}
+                    onClick={handleLike}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <MdFavorite  />
+                  </button>
+                </p>{" "}
+              </Card.Title>
+
               <Card.Img variant="top" src={recipeImg} />
               <Card.Text>
                 <p>
@@ -56,10 +66,9 @@ const Recipe = ({ singleRecipe }) => {
               </Card.Text>
             </Card.Body>
           </Card>
-       
         </div>
       </div>
-      
+
       <ToastContainer />
     </div>
   );

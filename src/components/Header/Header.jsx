@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Container,
@@ -16,7 +16,13 @@ import { AuthContext } from "../Providers/AuthProvider";
 import { FaBeer, FaUserAlt, FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut,updateUrl } = useContext(AuthContext);
+  const [isActive, setIsActive] = useState(false);
+
+
+ const handleClick=() =>{
+    setIsActive(true);
+  }
 
   const handleLogout = () => {
     logOut()
@@ -46,7 +52,7 @@ const Header = () => {
             <Nav className="me-auto">
               <Nav.Link>
                 {" "}
-                <Link className="text-decoration-none text-black" to={"/"}>
+                <Link onClick={handleClick} className="text-decoration-none text-black   isActive ? 'active' : ''" to={"/"}>
                   {" "}
                   Home
                 </Link>
@@ -82,7 +88,7 @@ const Header = () => {
                       <Image
                         {...triggerHandler}
                         style={{ height: "40px" }}
-                        src={user?.photoURL ?  user?.photoURL  : {login}  }
+                        src={user?.photoURL ?  user?.photoURL  : updateUrl.photoURL  }
                         roundedCircle
                         ref={ref}
                       />

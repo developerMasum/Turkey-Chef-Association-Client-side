@@ -11,7 +11,7 @@ const RecipyDetails = () => {
   const [details, setDetails] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/chefData/${id}`)
+    fetch(`https://chef-data-back-end-developermasum.vercel.app/chefData/${id}`)
       .then((res) => res.json())
       .then((data) => setDetails(data));
   }, []);
@@ -20,7 +20,7 @@ const RecipyDetails = () => {
     <div className="container mt-5">
       <div className="d-flex text-bg-secondary">
         <div className="mb-0">
-          <Card >
+          <Card>
             <Card.Img
               style={{ height: "400px", width: "350px" }}
               variant="top"
@@ -53,16 +53,13 @@ const RecipyDetails = () => {
       {/* recipe section ..  */}
 
       <h5 className="mt-5 fw-bold"> Chef's Recipes: </h5>
-     <div className="kalaPasa ">
-
-        {
-            details?.recipe?.map(singleRecipe=> <Recipe 
-                key={singleRecipe.recipeId}
-                singleRecipe = {singleRecipe}
-            
-            > </Recipe>)
-        }
-     </div>
+      <div className="kalaPasa ">
+        {details?.recipe?.map((singleRecipe) => (
+          <Recipe key={singleRecipe.recipeId} singleRecipe={singleRecipe}>
+            {" "}
+          </Recipe>
+        ))}
+      </div>
     </div>
   );
 };
